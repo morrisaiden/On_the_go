@@ -13,14 +13,23 @@
             <li>
                 {{ item.quantity }} x
                 {% if item.product %}
-                    {{ item.product.name }}
+                    {{ item.product.name }} - ${{ item.price }}
                 {% elif item.footwear %}
-                    {{ item.footwear.name }}
+                    {{ item.footwear.name }} - ${{ item.price }}
                 {% endif %}
-                 - ${{ item.price }}
             </li>
         {% empty %}
             <li>Your cart is empty.</li>
+        {% endfor %}
+    </ul>
+    
+    <!-- Debugging output -->
+    <p>Cart Items (for debugging):</p>
+    <ul>
+        {% for item in cart_items %}
+            <li>
+                {{ item }}
+            </li>
         {% endfor %}
     </ul>
 
