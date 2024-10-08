@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from .models import Product, Footwear, CartItem
 from django.contrib.auth.decorators import login_required
@@ -17,6 +18,7 @@ def item_list(request):
     items = list(product) + list(footwears)
 
     return render(request, "item_list.html", {'items': items, 'color': color})
+
 
 @login_required
 def add_to_cart(request, item_type, item_id, quantity):
@@ -39,6 +41,7 @@ def add_to_cart(request, item_type, item_id, quantity):
 
     return redirect('item_list')
 
+
 @login_required
 def cart_detail(request):
     user = request.user
@@ -49,6 +52,11 @@ def cart_detail(request):
     }
     return render(request, 'cart_detail.html', context)
 
+
 def shop_home(request):
     # Logic to display homepage
     return render(request, 'cart_detail.html')
+
+
+def members(request):
+    return HttpResponse("Hello, world. You're at the shop_home view.")
