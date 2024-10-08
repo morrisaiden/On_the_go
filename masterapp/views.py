@@ -23,29 +23,52 @@ def item_list(request):
 @login_required
 def add_to_cart(request, item_type, item_id, quantity):
     user = request.user
-    quantity = int(quantity)
 
-    if item_type == 'product':
-        product = get_object_or_404(Product, id=item_id)
-        cart_item, created = CartItem.objects.get_or_create(user=user, product=product, defaults={'quantity': quantity})
-        if not created:
-            cart_item.quantity += quantity
-        cart_item.save()
+    if request.method == 'POST':
+        # Get the quantity from the form (POST data)
+        quantity = int(request.POST.get('quantity', quantity))
 
-    elif item_type == 'footwear':
-        footwear = get_object_or_404(Footwear, id=item_id)
-        cart_item, created = CartItem.objects.get_or_create(user=user, footwear=footwear)
-        if not created:
-            cart_item.quantity += quantity
-        cart_item.save()
+        if item_type == 'product':
+            product = get_object_or_404(Product, id=item_id)
+            cart_item, created = CartItem.objects.get_or_create(
+                user=user,
+                product=product,
+                footwear=None,
+                defaults={'quantity': quantity, 'price': product.price}
+            )
+            if not created:
+                cart_item.quantity += quantity
+            cart_item.save()
 
-    return redirect('item_list')
+            print(f"Added {quantity} of {product.name} to {user.username}'s cart")
+
+        elif item_type == 'footwear':
+            footwear = get_object_or_404(Footwear, id=item_id)
+            cart_item, created = CartItem.objects.get_or_create(
+                user=user,
+                footwear=footwear,
+                product=None,
+                defaults={'quantity': quantity, 'price': footwear.price}
+            )
+
+            if not created:
+                cart_item.quantity += quantity
+            cart_item.save()
+
+            print(f"Added {quantity} of {footwear.name} to {user.username}'s cart")
+
+        return redirect('item_list')
 
 
 @login_required
 def cart_detail(request):
     user = request.user
     cart_items = CartItem.objects.filter(user=user)
+
+#Debugging: Print cart items to check if they are being fetched correctly
+
+    for item in cart_items:
+        print(f"{item.product or item.footwear} - Quantity: {item.quantity}")
 
     context = {
         'cart_items': cart_items,
