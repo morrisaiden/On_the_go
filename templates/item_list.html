@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Items List</title>
+</head>
+<body>
+<h1>Available Items</h1>
+
+<!-- Filter Form for color -->
+<form method="get">
+    <label for="color">Filter by color:</label>
+    <select name="color" id="color">
+        <option value="">All Colors</option>
+        <option value="Red" {% if color == "Red" %}selected{% endif %}>Red</option>
+        <option value="Blue" {% if color == "Blue" %}selected{% endif %}>Blue</option>
+        <option value="Green" {% if color == "Green" %}selected{% endif %}>Green</option>
+        <option value="Yellow" {% if color == "Yellow" %}selected{% endif %}>Yellow</option>
+        <option value="Purple" {% if color == "Purple" %}selected{% endif %}>Purple</option>
+        <option value="Pink" {% if color == "Pink" %}selected{% endif %}>Pink</option>
+        <option value="Black" {% if color == "Black" %}selected{% endif %}>Black</option>
+        <option value="White" {% if color == "White" %}selected{% endif %}>White</option>
+    </select>
+    <button type="submit">Filter</button>
+</form>  
+<ul>
+    {% for item in items %}
+        <li>
+           <strong>{{ item.name }}</strong> <br>
+           Description: {{ item.description }} <br>
+           Price: ${{ item.price }} <br>
+           Color: {{ item.color }} <br>
+        
+           <img src="{{ item.image.url }}" alt="{{ item.name }}" width="100" height="100" />
+        
+        <!-- Add to Cart button -->
+{#        <form method="post" action="{% url 'add_to_cart' 'item' item.id 1 %}">#}
+{#            {% csrf_token %}#}
+{#            <input type="number" name="quantity" value="1" min="1">#}
+{#            <button type="submit">Add to Cart</button>#}
+{#        </form>#}
+        
+        <form method="post" action="{% url 'add_to_cart' 'product' item.id 1 %}">
+            {% csrf_token %}
+            <input type="number" name="quantity" value="1" min="1" style="width: 50px;">
+            <button type="submit">Add to Cart</button>
+       </form>
+
+        </li>
+        
+        {% empty %}
+           <li>No items available.</li>
+    {% endfor %}
+</ul>
+</body>
+</html>
