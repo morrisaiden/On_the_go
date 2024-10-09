@@ -1,8 +1,8 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.db.models import Sum
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from .models import Product, Footwear, CartItem
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 
 
 def item_list(request):
@@ -17,7 +17,17 @@ def item_list(request):
 
     items = list(product) + list(footwears)
 
-    return render(request, "item_list.html", {'items': items, 'color': color})
+    cart_count = CartItem.objects.filter(user=request.user).aggregate(Sum('quantity'))['quantity__sum']
+    cart_count = cart_count if cart_count else 0
+
+    price=0
+
+    return render(request, "item_list.html", {
+        'items': items,
+        'color': color,
+        'cart_count': cart_count,
+        'price': price
+    })
 
 
 @login_required
