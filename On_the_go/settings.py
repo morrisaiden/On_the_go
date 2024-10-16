@@ -12,9 +12,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,8 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-# custom Apps
+    # custom Apps
     'masterapp',
+    'django_daraja',
+    'payment',
 ]
 
 MIDDLEWARE = [
@@ -73,7 +74,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'On_the_go.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
@@ -83,7 +83,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -103,7 +102,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
@@ -114,7 +112,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
@@ -129,3 +126,20 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Being that it's not in production we are using sandbox for test
+MPESA_ENVIRONMENT = 'sandbox'
+# below details are derived from MPESA_EXPRESS SIMULATOR under daraja API
+MPESA_CONSUMER_KEY = 'kEJ4GHnPGorjAyGmsz2JIRv5ASA5zp2C'
+MPESA_CONSUMER_SECRET = 'BTPeMDeLYGjodCfx'
+MPESA_SHORTCODE = '174379'
+MPESA_EXPRESS_SHORTCODE = '174379'
+MPESA_SHORTCODE_TYPE = 'paybill'
+MPESA_PASSKEY = 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919'
+
+# add initiator : username and password
+MPESA_INITIATOR_USERNAME = 'testapi'
+MPESA_INITIATOR_SECURITY_CREDENTIAL = 'Safaricom999!*!'
+
+
+BASE_DIR = Path(__file__).resolve().parent.parent

@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link rel="stylesheet" href="{% static 'css/payment.css' %}">
+</head>
+<body>
+
+    <form method="POST">
+        {% csrf_token %}
+         <h2>Mpesa Payment</h2>
+        <label for="phone_number">Phone Number:</label>
+        <input type="text" name="phone_number" required>
+        <br>
+        <label for="amount">Amount (KES):</label>
+        <input type="number" name="amount" required>
+        <br>
+        <button type="submit">Make Payment</button>
+    </form>
+
+</body>
+</html>
+
+

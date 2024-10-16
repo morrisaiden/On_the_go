@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{#    <link rel="stylesheet" href="{% static 'css/web.css' %}">#}
+	<title>Aiden Collection</title>
+	<style>
+
+		.product-list {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			list-style: none;
+			padding: 0;
+		}
+
+		.product-item {
+
+			flex: 1;
+
+			margin: 10px;
+			border: 1px solid #ccc;
+			padding: 10px;
+			text-align: center;
+		}
+
+		.buy-now-button {
+			display: block;
+			margin-top: 10px;
+			background-color: #007bff;
+			color: #fff;
+			text-decoration: none;
+			padding: 5px 10px;
+			border-radius: 5px;
+		}
+	</style>
+</head>
+
+<body>
+         <h1>Your Shopping Cart</h1>
+    
+        <div class="product-list">
+    
+    
+    
+        {% for item in cart_items %}
+        <div class="product-item">
+    
+            <p>{{ item.product.name }} ({{ item.quantity }})</p>
+            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" width="200" height="150">
+            <p>Price: Ksh{{ item.product.price }}</p>
+            <a href="{% url 'masterapp:remove_from_cart' item.id %}">Remove</a>
+    
+        </div>
+        {% empty %}
+        <p>Your cart is empty.</p>
+        {% endfor %}
+    
+        </div>
+        <a href="payment"><p>Total Price: Ksh{{ total_price }}</p></a>
+    {#	<p>Total Price: Ksh{{ total_price }}</p>#}
+    
+        <a href="{% url 'masterapp:product_list' %}">Continue Shopping</a>
+
+
+</body>
+
+</html>
+
+
