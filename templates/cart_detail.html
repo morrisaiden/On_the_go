@@ -1,10 +1,11 @@
-{% extends 'master.html' %}
-{% load static %}
-
-{% block title %}
-{% endblock %}
-
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+</head>
+<body>
     <h1>Your Cart</h1>
     
     <ul>
@@ -12,30 +13,18 @@
             <li>
                 {{ item.quantity }} x
                 {% if item.product %}
-                    {{ item.product.name }} - ${{ item.price }}
+                    {{ item.product.name }}
                 {% elif item.footwear %}
-                    {{ item.footwear.name }} - ${{ item.price }}
+                    {{ item.footwear.name }}
                 {% endif %}
-            
+                 - ${{ item.price }}
             </li>
         {% empty %}
             <li>Your cart is empty.</li>
         {% endfor %}
     </ul>
-    
-    <!-- Debugging output -->
-    <p>Cart Items (for debugging):</p>
-    <ul>
-        {% for item in cart_items %}
-            <li>
-                {{ item }}
-            </li>
-        {% endfor %}
-    </ul>
 
     <a href="{% url 'shop_home' %}">Continue Shopping</a>
 
-{% endblock %}
-
-{% block footer %}
-{% endblock %}
+</body>
+</html>
