@@ -5,13 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment</title>
-    <link rel="stylesheet" href="{% static 'css/payment.css' %}">
+    <link rel="stylesheet" href="{% static 'css/payment.css' %}"> <!-- Linking to CSS file -->
 </head>
 <body>
 
-    <form method="POST">
+<div class="container">
+    <form method="POST" class="payment-form">
         {% csrf_token %}
-         <h2>Mpesa Payment</h2>
+        <h2>Mpesa Payment</h2>
         <label for="phone_number">Phone Number:</label>
         <input type="text" name="phone_number" required>
         <br>
@@ -20,8 +21,7 @@
         <br>
         <button type="submit">Make Payment</button>
     </form>
+</div>
 
 </body>
 </html>
-
-
