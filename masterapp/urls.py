@@ -15,4 +15,7 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('cart/', views.cart, name='cart'),
     path('Shoes/', views.Footwear_list, name='Footwear_list'),
+    path('login', views.handlelogin, name='handlelogin'),
+    path('logout', views.handlelogout, name='handlelogout'),
+    path('signup', views.handlesignup, name='handlesignup'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
