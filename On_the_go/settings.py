@@ -43,7 +43,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 
-SITE_ID = 1
+SITE_ID = 2
 
 SOCIAL_ACCOUNT_PROVIDER = {
     'google': {
